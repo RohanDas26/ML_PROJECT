@@ -19,3 +19,5 @@ The main issue is that many models today are 'cheating' without even knowing it.
 Additionally, energy use is very tricky because it doesn't just go up and down once a year. It has two big peaks—one in the winter for heating and one in the summer for cooling. Most simple models can't handle this double-peak pattern very well.
 
 Finally, there's the problem of models becoming 'too smart' for their own good—where they memorize the past perfectly but can't adapt when the future looks a little different. This project is dedicated to solving these specific technical traps to create a model that is not just accurate, but actually useful for real-world decision-making."
+
+test
