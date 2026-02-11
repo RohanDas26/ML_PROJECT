@@ -1,0 +1,29 @@
+{
+  "Commercial": {
+    "best_model": "Ridge",
+    "RMSE": 61.33,
+    "R2": 0.8114,
+    "diagnostics": {
+      "mean_residual": -21.974378300887775,
+      "std_residual": 57.2556059769537,
+      "skewness": -0.08911547299618296,
+      "kurtosis": 0.24778494676936358,
+      "durbin_watson": 1.7714305353181363,
+      "LB_Statistic": 14.039000389831077,
+      "LB_P_Value": 0.8285130306990227,
+      "No_Autocorrelation": true,
+      "SW_Statistic": 0.9886116916091447,
+      "SW_P_Value": 0.40647338879331085,
+      "Normal_Residuals": "True"
+    },
+    "stationarity": {
+      "ADF_Statistic": -1.8184854304328757,
+      "ADF_P_Value": 0.3713235756070792,
+      "ADF_Stationary": "False",
+      "KPSS_Statistic": 1.1049807541852077,
+      "KPSS_P_Value": 0.01,
+      "KPSS_Stationary": "False",
+      "Stationary": "False"
+    }
+  }
+}

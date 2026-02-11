@@ -1,0 +1,154 @@
+{
+  "Residential": {
+    "best_model": "SVR",
+    "RMSE": 123.59,
+    "MAE": 91.23,
+    "R2": 0.8784,
+    "MAPE": 5.6,
+    "best_params": "{'C': 1.8578788789800718, 'epsilon': 0.003531987349659894, 'kernel': 'linear'}",
+    "diagnostics": {
+      "mean_residual": -26.793030272003925,
+      "std_residual": 120.6549695241979,
+      "skewness": -0.5512509211717529,
+      "kurtosis": 0.7369086549028432,
+      "durbin_watson": 1.9990884901734365,
+      "LB_Statistic": 12.391080291642073,
+      "LB_P_Value": 0.9019579668995431,
+      "No_Autocorrelation": true,
+      "SW_Statistic": 0.970543194637019,
+      "SW_P_Value": 0.00895052286544663,
+      "Normal_Residuals": "False"
+    },
+    "stationarity": {
+      "ADF_Statistic": -1.865009798638217,
+      "ADF_P_Value": 0.34869631846253124,
+      "ADF_Stationary": "False",
+      "KPSS_Statistic": 0.6920049403909794,
+      "KPSS_P_Value": 0.01,
+      "KPSS_Stationary": "False",
+      "Stationary": "False"
+    },
+    "full_metrics": {
+      "MSE": 15275.488142041639,
+      "RMSE": 123.59404573862625,
+      "MAE": 91.23309100656338,
+      "R2": 0.8783886640702269,
+      "MAPE": 5.600470958591887,
+      "Adj_R2": 0.8160628544062181
+    }
+  },
+  "Commercial": {
+    "best_model": "OMP",
+    "RMSE": 61.03,
+    "MAE": 47.94,
+    "R2": 0.8132,
+    "MAPE": 3.51,
+    "best_params": "{'n_nonzero_coefs': 33}",
+    "diagnostics": {
+      "mean_residual": -22.299748708143827,
+      "std_residual": 56.807566348869194,
+      "skewness": -0.039762080120172405,
+      "kurtosis": 0.22527291542747951,
+      "durbin_watson": 1.7681753729522023,
+      "LB_Statistic": 11.976185799758674,
+      "LB_P_Value": 0.9168932098320498,
+      "No_Autocorrelation": true,
+      "SW_Statistic": 0.9890555796397373,
+      "SW_P_Value": 0.4413788499889869,
+      "Normal_Residuals": "True"
+    },
+    "stationarity": {
+      "ADF_Statistic": -1.8184854304328757,
+      "ADF_P_Value": 0.3713235756070792,
+      "ADF_Stationary": "False",
+      "KPSS_Statistic": 1.1049807541852077,
+      "KPSS_P_Value": 0.01,
+      "KPSS_Stationary": "False",
+      "Stationary": "False"
+    },
+    "full_metrics": {
+      "MSE": 3724.378386927538,
+      "RMSE": 61.027685413487035,
+      "MAE": 47.940253893871564,
+      "R2": 0.8131932101301624,
+      "MAPE": 3.509112792965728,
+      "Adj_R2": 0.7174547303218707
+    }
+  },
+  "Industrial": {
+    "best_model": "KNN",
+    "RMSE": 67.61,
+    "MAE": 47.86,
+    "R2": 0.643,
+    "MAPE": 1.88,
+    "best_params": "{'n_neighbors': 3, 'weights': 'distance', 'p': 1}",
+    "diagnostics": {
+      "mean_residual": 5.277676939934434,
+      "std_residual": 67.40184716140998,
+      "skewness": -1.4521648945021788,
+      "kurtosis": 6.2062816955471405,
+      "durbin_watson": 1.485750110393493,
+      "LB_Statistic": 23.829372625523504,
+      "LB_P_Value": 0.24992501533820882,
+      "No_Autocorrelation": true,
+      "SW_Statistic": 0.9111052284541956,
+      "SW_P_Value": 6.348230893520395e-07,
+      "Normal_Residuals": "False"
+    },
+    "stationarity": {
+      "ADF_Statistic": -2.8387559233451656,
+      "ADF_P_Value": 0.052947456518598945,
+      "ADF_Stationary": "False",
+      "KPSS_Statistic": 0.32561352867354376,
+      "KPSS_P_Value": 0.01,
+      "KPSS_Stationary": "False",
+      "Stationary": "False"
+    },
+    "full_metrics": {
+      "MSE": 4570.862874652386,
+      "RMSE": 67.60815686477768,
+      "MAE": 47.86315924343203,
+      "R2": 0.6430153299213275,
+      "MAPE": 1.8770805949220926,
+      "Adj_R2": 0.46006068650600773
+    }
+  },
+  "Transportation": {
+    "best_model": "Lasso",
+    "RMSE": 94.5,
+    "MAE": 51.51,
+    "R2": 0.636,
+    "MAPE": 2.42,
+    "best_params": "{'alpha': 0.0009938145496956195}",
+    "diagnostics": {
+      "mean_residual": -3.144299498941737,
+      "std_residual": 94.44924528493605,
+      "skewness": -3.9602100874159523,
+      "kurtosis": 25.361370363731606,
+      "durbin_watson": 0.8876861386783322,
+      "LB_Statistic": 57.53285048949433,
+      "LB_P_Value": 1.7034749615304352e-05,
+      "No_Autocorrelation": false,
+      "SW_Statistic": 0.6741793795304736,
+      "SW_P_Value": 4.345365480289744e-15,
+      "Normal_Residuals": "False"
+    },
+    "stationarity": {
+      "ADF_Statistic": -1.4697322869318592,
+      "ADF_P_Value": 0.5484276988308068,
+      "ADF_Stationary": "False",
+      "KPSS_Statistic": 0.5687413656607571,
+      "KPSS_P_Value": 0.01,
+      "KPSS_Stationary": "False",
+      "Stationary": "False"
+    },
+    "full_metrics": {
+      "MSE": 8930.546554233058,
+      "RMSE": 94.50156905699005,
+      "MAE": 51.51130418945882,
+      "R2": 0.6359938636443134,
+      "MAPE": 2.4196281303650298,
+      "Adj_R2": 0.44944071876202407
+    }
+  }
+}

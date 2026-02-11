@@ -1,0 +1,74 @@
+{
+  "timestamp": "2026-02-11T14:34:11.060310",
+  "exogenous_sources": [
+    "INDPRO (Industrial Production Index) - FRED",
+    "MCOILWTICO (WTI Crude Oil Price) - FRED",
+    "CPIAUCSL (Consumer Price Index) - FRED",
+    "MHHNGSP (Henry Hub Natural Gas Price) - FRED",
+    "B230RC0Q173SBEA (US Population) - FRED",
+    "HDD/CDD (Computed from sinusoidal temperature model)"
+  ],
+  "results": [
+    {
+      "Sector": "Residential",
+      "Base_Best_Model": "SVR",
+      "Base_RMSE": 123.62532352400775,
+      "Base_R2": 0.8783271042346318,
+      "Base_MAPE": 5.605332152121118,
+      "Exog_Best_Model": "ElasticNet",
+      "Exog_RMSE": 120.22167705561708,
+      "Exog_R2": 0.8864400003720598,
+      "Exog_MAPE": 5.554602258580775,
+      "RMSE_Delta": 3.4,
+      "R2_Delta": 0.0081,
+      "N_Base_Features": 41,
+      "N_Exog_Features": 62
+    },
+    {
+      "Sector": "Commercial",
+      "Base_Best_Model": "OMP",
+      "Base_RMSE": 61.027685413487035,
+      "Base_R2": 0.8131932101301624,
+      "Base_MAPE": 3.509112792965728,
+      "Exog_Best_Model": "ExtraTrees",
+      "Exog_RMSE": 69.15468494819987,
+      "Exog_R2": 0.7635232994165738,
+      "Exog_MAPE": 3.8756263934791235,
+      "RMSE_Delta": -8.13,
+      "R2_Delta": -0.0497,
+      "N_Base_Features": 41,
+      "N_Exog_Features": 62
+    },
+    {
+      "Sector": "Industrial",
+      "Base_Best_Model": "KNN",
+      "Base_RMSE": 68.74359244774736,
+      "Base_R2": 0.6309239856077083,
+      "Base_MAPE": 1.931318486478098,
+      "Exog_Best_Model": "SVR",
+      "Exog_RMSE": 62.43079863334347,
+      "Exog_R2": 0.6980683559546601,
+      "Exog_MAPE": 1.9046823577598317,
+      "RMSE_Delta": 6.31,
+      "R2_Delta": 0.0671,
+      "N_Base_Features": 41,
+      "N_Exog_Features": 62
+    },
+    {
+      "Sector": "Transportation",
+      "Base_Best_Model": "Lasso",
+      "Base_RMSE": 94.42402148938764,
+      "Base_R2": 0.6365910221666236,
+      "Base_MAPE": 2.416104719986725,
+      "Exog_Best_Model": "Ridge",
+      "Exog_RMSE": 105.5354497145283,
+      "Exog_R2": 0.552107796583167,
+      "Exog_MAPE": 2.758707232798868,
+      "RMSE_Delta": -11.11,
+      "R2_Delta": -0.0845,
+      "N_Base_Features": 41,
+      "N_Exog_Features": 62
+    }
+  ],
+  "elapsed_seconds": 1352.7
+}
