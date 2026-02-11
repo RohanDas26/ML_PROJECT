@@ -1,20 +1,20 @@
 {
   "Commercial": {
-    "best_model": "Ridge",
-    "RMSE": 61.33,
-    "R2": 0.8114,
+    "best_model": "OMP",
+    "RMSE": 64.48,
+    "R2": 0.7915,
     "diagnostics": {
-      "mean_residual": -21.974378300887775,
-      "std_residual": 57.2556059769537,
-      "skewness": -0.08911547299618296,
-      "kurtosis": 0.24778494676936358,
-      "durbin_watson": 1.7714305353181363,
-      "LB_Statistic": 14.039000389831077,
-      "LB_P_Value": 0.8285130306990227,
-      "No_Autocorrelation": true,
-      "SW_Statistic": 0.9886116916091447,
-      "SW_P_Value": 0.40647338879331085,
-      "Normal_Residuals": "True"
+      "mean_residual": -12.253549844331008,
+      "std_residual": 63.30638942025015,
+      "skewness": 0.38755396942821274,
+      "kurtosis": 0.6324465905739314,
+      "durbin_watson": 1.789774285223739,
+      "LB_Statistic": 33.060704600426114,
+      "LB_P_Value": 0.0332267839448062,
+      "No_Autocorrelation": false,
+      "SW_Statistic": 0.9750912227285375,
+      "SW_P_Value": 0.02320756976380791,
+      "Normal_Residuals": "False"
     },
     "stationarity": {
       "ADF_Statistic": -1.8184854304328757,
@@ -24,6 +24,7 @@
       "KPSS_P_Value": 0.01,
       "KPSS_Stationary": "False",
       "Stationary": "False"
-    }
+    },
+    "forecast_next_12m": "Generated"
   }
 }
