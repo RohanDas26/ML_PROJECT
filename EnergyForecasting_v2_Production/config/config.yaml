@@ -1,0 +1,119 @@
+# =============================================================================
+# Energy Forecasting Framework — Master Configuration
+# =============================================================================
+
+project:
+  name: "Energy Forecasting Framework"
+  version: "2.0.0"
+  random_seed: 42
+
+# --- Data -------------------------------------------------------------------
+data:
+  raw_path: "Data/NEW DATA SET-1.xlsx"
+  sheet_name: "Sheet1"
+  skiprows: 1
+  sectors:
+    - "Residential"
+    - "Commercial"
+    - "Industrial"
+    - "Transportation"
+  target_sector: "Commercial"   # default target; overridden at runtime
+  date_column: "Month"
+
+# --- Feature Engineering -----------------------------------------------------
+features:
+  # Autoregressive lags (months)
+  target_lags: [1, 2, 3, 6, 12, 13, 24]
+
+  # Rolling / EMA windows (months) — all shifted by 1 to avoid look-ahead
+  rolling_windows: [3, 6, 12]
+  ema_spans: [3, 6, 12]
+
+  # Harmonic cycles (months)
+  harmonic_periods: [12, 6, 3]
+
+  # Cross-sector lags (months)
+  cross_sector_lags: [1, 12]
+
+  # Stationarity
+  use_differencing: false
+
+  # Seasonal flags
+  seasonal_flags: true
+
+  # Momentum features
+  momentum: true
+
+# --- Train / Test Split ------------------------------------------------------
+split:
+  test_fraction: 0.20
+  validation_strategy: "TimeSeriesSplit"  # TimeSeriesSplit | WalkForward
+  n_splits: 5
+
+# --- Models ------------------------------------------------------------------
+models:
+  linear:
+    Ridge:
+      param_grid:
+        alpha: [0.01, 0.1, 1.0, 10.0, 100.0]
+    Lasso:
+      param_grid:
+        alpha: [0.001, 0.01, 0.1, 1.0]
+      max_iter: 10000
+    ElasticNet:
+      param_grid:
+        alpha: [0.001, 0.01, 0.1]
+        l1_ratio: [0.2, 0.5, 0.8]
+      max_iter: 10000
+    OMP:
+      param_grid:
+        n_nonzero_coefs: [5, 10, 15, 20, 25]
+
+  tree:
+    RandomForest:
+      param_grid:
+        n_estimators: [20, 50]
+        max_depth: [3, 5, 7]
+        min_samples_leaf: [5, 10]
+    GradientBoosting:
+      param_grid:
+        n_estimators: [50, 100]
+        max_depth: [3, 5]
+        learning_rate: [0.05, 0.1]
+    XGBoost:
+      param_grid:
+        n_estimators: [50, 100]
+        max_depth: [3, 5]
+        learning_rate: [0.05, 0.1]
+    LightGBM:
+      param_grid:
+        n_estimators: [50, 100]
+        max_depth: [3, 5]
+        learning_rate: [0.05, 0.1]
+
+  instance:
+    KNN:
+      param_grid:
+        n_neighbors: [3, 5, 7, 10]
+        weights: ["uniform", "distance"]
+
+# --- Evaluation --------------------------------------------------------------
+evaluation:
+  metrics: ["MSE", "RMSE", "MAE", "R2", "MAPE"]
+  dm_baseline: "Ridge"
+  base_paper_mse_ridge: 2.61  # Trillion BTU — original paper benchmark
+
+# --- Output Paths ------------------------------------------------------------
+output:
+  results_dir: "Results"
+  tables_dir: "Results/tables"
+  figures_dir: "Results/figures"
+  artifacts_dir: "Data/Artifacts"
+  model_path: "Data/Artifacts/final_model.pkl"
+  pipeline_path: "Data/Artifacts/preprocess_pipeline.pkl"
+
+# --- Logging -----------------------------------------------------------------
+logging:
+  level: "INFO"        # DEBUG | INFO | WARNING | ERROR
+  log_to_file: true
+  log_file: "Results/run.log"
