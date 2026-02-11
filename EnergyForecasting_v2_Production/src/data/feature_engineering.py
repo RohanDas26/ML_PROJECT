@@ -31,6 +31,8 @@ def create_features(
     use_differencing: bool = False,
     seasonal_flags: bool = True,
     momentum: bool = True,
+    exog_df: pd.DataFrame | None = None,
+    drop_na: bool = True,
 ) -> pd.DataFrame:
     """
     Build the complete feature matrix for a given target sector.
@@ -47,6 +49,10 @@ def create_features(
     use_differencing : first-order differencing on target
     seasonal_flags : binary winter/summer/spring/fall flags
     momentum : YoY, MoM, and k-month momentum features
+    exog_df : Optional DataFrame with exogenous vars (Month + vars).
+              Will be merged and LAGGED to prevent leakage.
+    drop_na : whether to drop rows with NaN values (default: True).
+              Set to False for inference/forecasting where target is NaN.
 
     Returns
     -------
@@ -138,9 +144,39 @@ def create_features(
         feat["is_fall"] = month_num.isin([9, 10, 11]).astype(int)
         log.info("Seasonal flags: winter, summer, spring, fall")
 
+    # --- Exogenous Variables (Lagged) ------------------------------------
+    if exog_df is not None:
+        log.info("Merging exogenous variables...")
+        # Merge on Month
+        feat = feat.merge(exog_df, on="Month", how="left")
+        
+        # Identify exogenous columns (those not already in feat or created above)
+        # Actually easiest is to assume everything from exog_df minus Month is a feature
+        exog_cols = [c for c in exog_df.columns if c != "Month"]
+        
+        for col in exog_cols:
+            # Create lags to prevent leakage. Direct concurrent value is FORBIDDEN.
+            # We use lags 1 (t-1 available at prediction time t) and 12 (seasonality)
+            feat[f"{col}_lag1"] = feat[col].shift(1)
+            feat[f"{col}_lag12"] = feat[col].shift(12)
+            
+            # YoY % change for non-temperature vars
+            if "HDD" not in col and "CDD" not in col and "temp" not in col:
+                 feat[f"{col}_yoy"] = feat[col].pct_change(12).shift(1) # Shift 1 to be safe
+            
+            # Drop the raw concurrent column to enforce leakage safety
+            feat.drop(columns=[col], inplace=True)
+            
+        log.info(f"Added lagged exogenous features for: {exog_cols}")
+
     # --- Drop NaN rows created by lagging --------------------------------
     n_before = len(feat)
-    feat = feat.dropna().reset_index(drop=True)
+    if drop_na:
+        feat = feat.dropna().reset_index(drop=True)
+    else:
+        # Reset index but keep NaNs
+        feat = feat.reset_index(drop=True)
+        
     n_after = len(feat)
 
     feature_cols = [c for c in feat.columns if c not in ("Month", "target")]
@@ -148,6 +184,46 @@ def create_features(
              len(feature_cols), n_after, n_before - n_after)
 
     return feat
+
+
+def select_features_lasso(df: pd.DataFrame, target_col: str = "target", min_features: int = 10) -> list[str]:
+    """
+    Selects the most predictive features using LassoCV (L1 regularization).
+    Retains at least `min_features` features.
+    """
+    from sklearn.linear_model import LassoCV
+    from sklearn.preprocessing import StandardScaler
+    
+    # Prepare X and y
+    feature_cols = [c for c in df.columns if c not in ("Month", target_col)]
+    X = df[feature_cols].values
+    y = df[target_col].values
+    
+    # Scale features (crucial for Lasso)
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+    
+    # Fit LassoCV (automatically finds best alpha)
+    # n_alphas=100 usually enough. cv=5 for robustness
+    model = LassoCV(cv=5, random_state=42, n_jobs=-1, max_iter=2000).fit(X_scaled, y)
+    
+    # Get coefficients
+    coefs = np.abs(model.coef_)
+    
+    # Sort features by importance
+    importance = pd.DataFrame({"feature": feature_cols, "coef": coefs})
+    importance = importance.sort_values("coef", ascending=False)
+    
+    # Select features with non-zero coefficients
+    selected = importance[importance["coef"] > 1e-5]["feature"].tolist()
+    
+    # If too few selected, take top N
+    if len(selected) < min_features:
+        log.warning(f"Lasso selected only {len(selected)} features. Enforcing min {min_features}.")
+        selected = importance.head(min_features)["feature"].tolist()
+        
+    log.info(f"Lasso selection: kept {len(selected)}/{len(feature_cols)} features.")
+    return selected
 
 
 def get_feature_columns(df: pd.DataFrame) -> list[str]:

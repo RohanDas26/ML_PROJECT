@@ -25,9 +25,15 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.data.loader import load_raw_data, validate_data, ALL_SECTORS
-from src.data.feature_engineering import create_features, get_feature_columns
+from src.data.feature_engineering import (
+    create_features, 
+    get_feature_columns, 
+    select_features_lasso
+)
 from src.data.preprocessor import TimeSeriesPreprocessor
+from src.data.exogenous import get_all_exogenous
 from src.models.trainer import train_all_models
+from src.models.forecaster import RecursiveForecaster
 from src.evaluation.statistical_tests import run_dm_tests
 from src.evaluation.diagnostics import residual_diagnostics, stationarity_tests
 from src.evaluation.metrics import compute_all_metrics
@@ -35,6 +41,7 @@ from src.visualization.plots import (
     plot_actual_vs_predicted,
     plot_residuals,
     plot_model_comparison,
+    plot_model_forecast,  # Need to implement this or use generic plot
     plot_feature_importance,
 )
 from src.utils.io import save_dataframe, save_json, save_model
@@ -62,6 +69,9 @@ def run_sector_pipeline(
     target_sector: str,
     cfg: dict,
     log,
+    exog_df: pd.DataFrame | None = None,
+    select_features: bool = False,
+    forecast_horizon: int = 0,
 ) -> dict:
     """
     Run the full pipeline for one target sector.
@@ -87,10 +97,23 @@ def run_sector_pipeline(
         use_differencing=feat_cfg.get("use_differencing", False),
         seasonal_flags=feat_cfg.get("seasonal_flags", True),
         momentum=feat_cfg.get("momentum", True),
+        exog_df=exog_df if target_sector in ALL_SECTORS else None, # pass exog if valid
     )
+
+    # 1b. Feature Selection (Lasso)
+    if select_features:
+        log.info("Running Lasso feature selection...")
+        selected_cols = select_features_lasso(features_df, min_features=15)
+        # Keep Month and target, drop others not in selected
+        keep_cols = ["Month", "target"] + selected_cols
+        features_df = features_df[keep_cols]
+        log.info("Feature selection complete. Retained %d covariance features.", len(selected_cols))
 
     # 2. Stationarity check on target
     stationarity = stationarity_tests(features_df["target"])
+    if cfg.get("features", {}).get("stationarity") == "auto" and not stationarity.get("Stationary", False):
+        log.warning("Target is NON-STATIONARY but auto-differencing is not fully enabled in this MVP.")
+        log.warning("Recommendation: Enable 'use_differencing: true' in config or use robust models.")
 
     # 3. Split & scale
     preproc = TimeSeriesPreprocessor()
@@ -142,7 +165,7 @@ def run_sector_pipeline(
         save_path=fig_dir / f"{target_sector}_model_comparison.png",
     )
 
-    # Feature importance (if model supports it)
+    # Feature importance
     if hasattr(best_model, "coef_"):
         plot_feature_importance(
             np.abs(best_model.coef_),
@@ -158,6 +181,37 @@ def run_sector_pipeline(
             save_path=fig_dir / f"{target_sector}_feature_importance.png",
         )
 
+    # 8. Forecasting (Recursion)
+    forecast_results = None
+    if forecast_horizon > 0:
+        log.info("Running recursive forecast for %d months...", forecast_horizon)
+        forecaster = RecursiveForecaster(
+            model=best_model,
+            preprocessor=preproc,
+            feature_fn=create_features,
+            sector=target_sector,
+            feat_cfg=feat_cfg,
+            history_df=df,
+            feature_cols=data["feature_cols"],
+            exog_df=exog_df
+        )
+        forecast_df = forecaster.predict_horizon(forecast_horizon)
+        
+        # Save forecast
+        save_dataframe(forecast_df, fig_dir.parent / "tables" / f"{target_sector}_forecast.csv")
+        
+        # Plot forecast with history
+        from src.visualization.plots import plot_recursive_forecast
+        plot_recursive_forecast(
+            history_dates=df["Month"],
+            history_vals=df[target_sector],
+            forecast_dates=forecast_df["Month"],
+            forecast_vals=forecast_df["Forecast"],
+            title=f"{target_sector} — {forecast_horizon}-Month Forecast ({best_name})",
+            save_path=fig_dir / f"{target_sector}_forecast.png"
+        )
+        forecast_results = forecast_df.to_dict(orient="records")
+
     return {
         "results": results_df,
         "dm_tests": dm_results,
@@ -165,6 +219,7 @@ def run_sector_pipeline(
         "feature_cols": data["feature_cols"],
         "diagnostics": diag,
         "stationarity": stationarity,
+        "forecast": forecast_results,
     }
 
 
@@ -173,7 +228,10 @@ def run_sector_pipeline(
 # -----------------------------------------------------------------------
 
 def main(config_path: str = "config/config.yaml",
-         sectors: list[str] | None = None) -> dict:
+         sectors: list[str] | None = None,
+         use_exogenous: bool = False,
+         select_features: bool = False,
+         forecast_horizon: int = 0) -> dict:
     """
     Run the complete pipeline for one or more sectors.
 
@@ -181,6 +239,9 @@ def main(config_path: str = "config/config.yaml",
     ----------
     config_path : path to YAML config
     sectors : list of sector names, or None for all
+    use_exogenous : if True, fetch and use external data (FRED, HDD/CDD)
+    select_features : if True, use Lasso to prune features
+    forecast_horizon : months to forecast into future (0 = no forecast)
 
     Returns
     -------
@@ -211,6 +272,13 @@ def main(config_path: str = "config/config.yaml",
     validation = validate_data(df)
     log.info("Validation report: %s", validation)
 
+    # Fetch Exogenous Data
+    exog_df = None
+    if use_exogenous:
+        log.info("Fetching exogenous data (FRED + Weather)...")
+        exog_df = get_all_exogenous(df["Month"])
+        log.info("Exogenous data ready: %d columns", exog_df.shape[1] - 1)
+
     # Determine sectors to run
     if sectors is None:
         sectors = data_cfg.get("sectors", ALL_SECTORS)
@@ -218,7 +286,12 @@ def main(config_path: str = "config/config.yaml",
     # Run pipeline per sector
     all_results = {}
     for sector in sectors:
-        all_results[sector] = run_sector_pipeline(df, sector, cfg, log)
+        all_results[sector] = run_sector_pipeline(
+            df, sector, cfg, log,
+            exog_df=exog_df,
+            select_features=select_features,
+            forecast_horizon=forecast_horizon
+        )
 
     # ------------------------------------------------------------------
     # Save consolidated results
@@ -253,13 +326,18 @@ def main(config_path: str = "config/config.yaml",
     summary = {}
     for sector, sdata in all_results.items():
         best = sdata["results"].iloc[0]
-        summary[sector] = {
+        summ_entry = {
             "best_model": best["Model"],
             "RMSE": round(float(best["RMSE"]), 2),
             "R2": round(float(best["R2"]), 4),
             "diagnostics": sdata["diagnostics"],
             "stationarity": sdata["stationarity"],
         }
+        if sdata.get("forecast"):
+             summ_entry["forecast_next_12m"] = "Generated"
+             
+        summary[sector] = summ_entry
+        
     save_json(summary, tables_dir / "pipeline_summary.json")
 
     # Save best model artifact
@@ -275,6 +353,8 @@ def main(config_path: str = "config/config.yaml",
     for sector, s in summary.items():
         log.info("  %s → %s  (RMSE=%.2f, R²=%.4f)",
                  sector, s["best_model"], s["RMSE"], s["R2"])
+        if "forecast_next_12m" in s:
+            log.info("    -> Forecast generated for next %d months", forecast_horizon)
 
     return all_results
 
@@ -289,7 +369,20 @@ if __name__ == "__main__":
                         help="Path to YAML config file")
     parser.add_argument("--sector", default=None,
                         help="Run for a single sector (e.g. Commercial)")
+    parser.add_argument("--exogenous", action="store_true",
+                        help="Enable exogenous variables (FRED data)")
+    parser.add_argument("--select-features", action="store_true",
+                        help="Use Lasso to select best features (prevents overfitting)")
+    parser.add_argument("--forecast", type=int, default=0,
+                        help="Number of months to forecast into the future (e.g. 12)")
+                        
     args = parser.parse_args()
 
     sectors = [args.sector] if args.sector else None
-    main(config_path=args.config, sectors=sectors)
+    main(
+        config_path=args.config, 
+        sectors=sectors,
+        use_exogenous=args.exogenous,
+        select_features=args.select_features,
+        forecast_horizon=args.forecast
+    )

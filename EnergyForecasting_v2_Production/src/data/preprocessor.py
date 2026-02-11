@@ -96,6 +96,41 @@ class TimeSeriesPreprocessor:
         return data
 
     # ------------------------------------------------------------------
+    # Stationarity & Differencing
+    # ------------------------------------------------------------------
+    def check_stationarity(self, series: pd.Series, p_value_threshold: float = 0.05) -> bool:
+        """
+        Run Augmented Dickey-Fuller test to check for stationarity.
+        Returns True if stationary (p-value < threshold), False otherwise.
+        """
+        from statsmodels.tsa.stattools import adfuller
+        try:
+            result = adfuller(series.dropna())
+            p_value = result[1]
+            return p_value < p_value_threshold
+        except Exception:
+            return False  # Assume non-stationary on error
+
+    def difference(self, series: pd.Series) -> tuple[pd.Series, float | None]:
+        """
+        Apply first-order differencing.
+        Returns (differenced_series, first_value_for_reconstruction).
+        """
+        diff_series = series.diff().dropna()
+        first_val = series.iloc[0]
+        return diff_series, first_val
+
+    def inverse_difference(self, diff_series: np.ndarray, first_val: float) -> np.ndarray:
+        """
+        Reconstruct original series from differenced data:
+        y_t = y_{t-1} + diff_t
+        """
+        # np.r_ concatenates along the first axis
+        # cumsum recovers the cumulative changes
+        reconstructed = np.r_[first_val, diff_series].cumsum()
+        return reconstructed[1:]  # Return aligned series (excluding the seed)
+
+    # ------------------------------------------------------------------
     # Inverse transform
     # ------------------------------------------------------------------
     def inverse_transform_y(self, y_scaled: np.ndarray) -> np.ndarray:

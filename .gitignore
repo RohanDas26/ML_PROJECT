@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+.DS_Store
+.pytest_cache/
+EnergyForecasting_v2_Production/Data/Processed/
+EnergyForecasting_v2_Production/src/data/__pycache__/
+EnergyForecasting_v2_Production/src/models/__pycache__/
+EnergyForecasting_v2_Production/src/visualization/__pycache__/

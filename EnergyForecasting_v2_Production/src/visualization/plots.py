@@ -204,3 +204,56 @@ def plot_cv_scores(
     if save_path:
         _save(fig, save_path)
     return fig
+
+
+def plot_model_forecast(
+    dates: pd.Series,
+    y_true: np.ndarray,
+    y_pred: np.ndarray,
+    title: str = "Forecast vs Actual",
+    save_path: str | Path | None = None,
+) -> plt.Figure:
+    """Alias for plot_time_series_forecast."""
+    from src.visualization.plots import plot_time_series_forecast
+    return plot_time_series_forecast(dates, y_true, y_pred, title, save_path)
+
+
+def plot_recursive_forecast(
+    history_dates: pd.Series,
+    history_vals: pd.Series,
+    forecast_dates: pd.Series,
+    forecast_vals: pd.Series,
+    title: str = "Recursive Forecast",
+    save_path: str | Path | None = None,
+) -> plt.Figure:
+    """Plot historical data + future forecast."""
+    fig, ax = plt.subplots(figsize=(14, 6))
+    
+    # Plot history (last 5 years only for clarity)
+    hist_subset = history_dates[-60:]
+    val_subset = history_vals[-60:]
+    
+    ax.plot(hist_subset, val_subset, label="History (Last 5 Years)", color="black", lw=1.5)
+    
+    # Plot forecast
+    # Connect last history point to first forecast point for continuity
+    last_date = hist_subset.iloc[-1]
+    last_val = val_subset.iloc[-1]
+    
+    # Only draw connection if forecast starts immediately after
+    if (forecast_dates.iloc[0] - last_date).days < 35:
+         ax.plot([last_date, forecast_dates.iloc[0]], [last_val, forecast_vals.iloc[0]], 
+                 color="red", linestyle="--", lw=1.5)
+
+    ax.plot(forecast_dates, forecast_vals, label="Forecast (Recursive)", 
+            color="red", linestyle="--", lw=1.5)
+            
+    ax.set_xlabel("Date")
+    ax.set_ylabel("Energy (Trillion BTU)")
+    ax.set_title(title)
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+    
+    if save_path:
+        _save(fig, save_path)
+    return fig
