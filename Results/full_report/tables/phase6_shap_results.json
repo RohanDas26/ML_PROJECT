@@ -1,0 +1,98 @@
+{
+  "Residential_good_SVR": {
+    "sector": "Residential",
+    "model": "SVR",
+    "label": "good",
+    "top_5_features": {
+      "month_cos_12": 0.3997,
+      "target_lag_1": 0.1687,
+      "rolling_mean_6": 0.0969,
+      "is_spring": 0.094,
+      "month_cos_6": 0.0838
+    }
+  },
+  "Residential_bad_KNN": {
+    "sector": "Residential",
+    "model": "KNN",
+    "label": "bad",
+    "top_5_features": {
+      "is_winter": 0.0307,
+      "year": 0.028,
+      "total_energy_lag_12": 0.027,
+      "transportation_lag_12": 0.0252,
+      "month_cos_12": 0.0247
+    }
+  },
+  "Commercial_good_OMP": {
+    "sector": "Commercial",
+    "model": "OMP",
+    "label": "good",
+    "top_5_features": {
+      "ema_12": 0.7029,
+      "rolling_mean_12": 0.6631,
+      "target_lag_1": 0.4879,
+      "is_fall": 0.1497,
+      "month_cos_12": 0.1472
+    }
+  },
+  "Commercial_bad_KNN": {
+    "sector": "Commercial",
+    "model": "KNN",
+    "label": "bad",
+    "top_5_features": {
+      "year": 0.1043,
+      "transportation_lag_1": 0.0524,
+      "transportation_lag_12": 0.0446,
+      "target_lag_24": 0.0416,
+      "ema_12": 0.0368
+    }
+  },
+  "Industrial_good_KNN": {
+    "sector": "Industrial",
+    "model": "KNN",
+    "label": "good",
+    "top_5_features": {
+      "yoy_change": 0.0205,
+      "target_lag_12": 0.0188,
+      "target_lag_1": 0.0181,
+      "month_sin_3": 0.018,
+      "target_lag_2": 0.017
+    }
+  },
+  "Industrial_bad_RandomForest": {
+    "sector": "Industrial",
+    "model": "RandomForest",
+    "label": "bad",
+    "top_5_features": {
+      "target_lag_12": 0.1545,
+      "ema_3": 0.1283,
+      "ema_6": 0.0689,
+      "month_sin_12": 0.06,
+      "rolling_mean_12": 0.0444
+    }
+  },
+  "Transportation_good_Lasso": {
+    "sector": "Transportation",
+    "model": "Lasso",
+    "label": "good",
+    "top_5_features": {
+      "target_lag_12": 0.2832,
+      "target_lag_2": 0.2704,
+      "target_lag_3": 0.2464,
+      "rolling_mean_12": 0.1885,
+      "is_spring": 0.1004
+    }
+  },
+  "Transportation_bad_RandomForest": {
+    "sector": "Transportation",
+    "model": "RandomForest",
+    "label": "bad",
+    "top_5_features": {
+      "target_lag_12": 0.9757,
+      "rolling_mean_12": 0.1041,
+      "target_lag_2": 0.0492,
+      "target_lag_24": 0.0321,
+      "ema_6": 0.0293
+    }
+  }
+}

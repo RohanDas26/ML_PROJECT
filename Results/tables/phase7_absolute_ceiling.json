@@ -1,0 +1,179 @@
+{
+  "experiment": "Phase 7 -- Absolute ceiling (Optuna tuning + 70 features + cross-sector deep lags)",
+  "n_optuna_trials": 80,
+  "n_folds": 10,
+  "sectors": {
+    "Residential": {
+      "phase6_RMSE_BTU": 2.53,
+      "phase7_RMSE_BTU": 0.1094,
+      "best_model": "lasso",
+      "improvement_vs_phase6": "+95.7%",
+      "all_models": {
+        "lasso": {
+          "RMSE_BTU": 0.1094,
+          "RMSE_std": 0.1511,
+          "MAE_BTU": 0.0936,
+          "R2": 1.0,
+          "best_params": "{'alpha': 4.418771379703073e-05, 'copy_X': True, 'fit_intercept': True, 'max_iter': 20000, 'positive': False, 'precompute': False, 'random_state': None, 'selection': 'cyclic', 'tol': 0.0001, 'warm_start': False}"
+        },
+        "elasticnet": {
+          "RMSE_BTU": 0.1266,
+          "RMSE_std": 0.1373,
+          "MAE_BTU": 0.1025,
+          "R2": 1.0,
+          "best_params": "{'alpha': 7.071400744493266e-05, 'copy_X': True, 'fit_intercept': True, 'l1_ratio': 0.8935666106731359, 'max_iter': 20000, 'positive': False, 'precompute': False, 'random_state': None, 'selection': 'cyclic', 'tol': 0.0001, 'warm_start': False}"
+        },
+        "ridge": {
+          "RMSE_BTU": 14.631,
+          "RMSE_std": 43.3795,
+          "MAE_BTU": 13.4388,
+          "R2": 0.97535,
+          "best_params": "{'alpha': 0.001002884684427845, 'copy_X': True, 'fit_intercept': True, 'max_iter': None, 'positive': False, 'random_state': None, 'solver': 'auto', 'tol': 0.0001}"
+        },
+        "xgboost": {
+          "RMSE_BTU": 36.931,
+          "RMSE_std": 11.0037,
+          "MAE_BTU": 27.3847,
+          "R2": 0.98425,
+          "best_params": "{'objective': 'reg:squarederror', 'base_score': None, 'booster': None, 'callbacks': None, 'colsample_bylevel': None, 'colsample_bynode': None, 'colsample_bytree': 0.6961376775456753, 'device': None, 'early_stopping_rounds': None, 'enable_categorical': False, 'eval_metric': None, 'feature_types': None, 'feature_weights': None, 'gamma': None, 'grow_policy': None, 'importance_type': None, 'interaction_constraints': None, 'learning_rate': 0.028032102484977672, 'max_bin': None, 'max_cat_threshold': None, 'max_cat_to_onehot': None, 'max_delta_step': None, 'max_depth': 3, 'max_leaves': None, 'min_child_weight': 6, 'missing': nan, 'monotone_constraints': None, 'multi_strategy': None, 'n_estimators': 585, 'n_jobs': None, 'num_parallel_tree': None, 'random_state': 42, 'reg_alpha': None, 'reg_lambda': None, 'sampling_method': None, 'scale_pos_weight': None, 'subsample': 0.5134224808432857, 'tree_method': None, 'validate_parameters': None, 'verbosity': 0}"
+        },
+        "lgbm": {
+          "RMSE_BTU": 43.0139,
+          "RMSE_std": 19.0686,
+          "MAE_BTU": 30.5727,
+          "R2": 0.97563,
+          "best_params": "{'boosting_type': 'gbdt', 'class_weight': None, 'colsample_bytree': 0.8571989420890437, 'importance_type': 'split', 'learning_rate': 0.04907974370368025, 'max_depth': 8, 'min_child_samples': 20, 'min_child_weight': 0.001, 'min_split_gain': 0.0, 'n_estimators': 497, 'n_jobs': None, 'num_leaves': 107, 'objective': None, 'random_state': 42, 'reg_alpha': 0.0, 'reg_lambda': 0.0, 'subsample': 0.55206479610992, 'subsample_for_bin': 200000, 'subsample_freq': 0, 'verbose': -1}"
+        }
+      }
+    },
+    "Commercial": {
+      "phase6_RMSE_BTU": 1.22,
+      "phase7_RMSE_BTU": 0.0626,
+      "best_model": "lasso",
+      "improvement_vs_phase6": "+94.9%",
+      "all_models": {
+        "lasso": {
+          "RMSE_BTU": 0.0626,
+          "RMSE_std": 0.063,
+          "MAE_BTU": 0.0475,
+          "R2": 1.0,
+          "best_params": "{'alpha': 8.629132190071849e-05, 'copy_X': True, 'fit_intercept': True, 'max_iter': 20000, 'positive': False, 'precompute': False, 'random_state': None, 'selection': 'cyclic', 'tol': 0.0001, 'warm_start': False}"
+        },
+        "elasticnet": {
+          "RMSE_BTU": 0.0653,
+          "RMSE_std": 0.0679,
+          "MAE_BTU": 0.0498,
+          "R2": 1.0,
+          "best_params": "{'alpha': 9.335114841157949e-05, 'copy_X': True, 'fit_intercept': True, 'l1_ratio': 0.9066856462533454, 'max_iter': 20000, 'positive': False, 'precompute': False, 'random_state': None, 'selection': 'cyclic', 'tol': 0.0001, 'warm_start': False}"
+        },
+        "ridge": {
+          "RMSE_BTU": 2.1269,
+          "RMSE_std": 6.1247,
+          "MAE_BTU": 1.7838,
+          "R2": 0.99789,
+          "best_params": "{'alpha': 0.001855505907765646, 'copy_X': True, 'fit_intercept': True, 'max_iter': None, 'positive': False, 'random_state': None, 'solver': 'auto', 'tol': 0.0001}"
+        },
+        "xgboost": {
+          "RMSE_BTU": 18.4208,
+          "RMSE_std": 5.0895,
+          "MAE_BTU": 13.4757,
+          "R2": 0.98252,
+          "best_params": "{'objective': 'reg:squarederror', 'base_score': None, 'booster': None, 'callbacks': None, 'colsample_bylevel': None, 'colsample_bynode': None, 'colsample_bytree': 0.6366253093622226, 'device': None, 'early_stopping_rounds': None, 'enable_categorical': False, 'eval_metric': None, 'feature_types': None, 'feature_weights': None, 'gamma': None, 'grow_policy': None, 'importance_type': None, 'interaction_constraints': None, 'learning_rate': 0.058393970664223985, 'max_bin': None, 'max_cat_threshold': None, 'max_cat_to_onehot': None, 'max_delta_step': None, 'max_depth': 3, 'max_leaves': None, 'min_child_weight': 6, 'missing': nan, 'monotone_constraints': None, 'multi_strategy': None, 'n_estimators': 487, 'n_jobs': None, 'num_parallel_tree': None, 'random_state': 42, 'reg_alpha': None, 'reg_lambda': None, 'sampling_method': None, 'scale_pos_weight': None, 'subsample': 0.5345888429540775, 'tree_method': None, 'validate_parameters': None, 'verbosity': 0}"
+        },
+        "lgbm": {
+          "RMSE_BTU": 21.5656,
+          "RMSE_std": 9.295,
+          "MAE_BTU": 16.1139,
+          "R2": 0.97253,
+          "best_params": "{'boosting_type': 'gbdt', 'class_weight': None, 'colsample_bytree': 0.5601850461890235, 'importance_type': 'split', 'learning_rate': 0.09149113461899197, 'max_depth': 2, 'min_child_samples': 20, 'min_child_weight': 0.001, 'min_split_gain': 0.0, 'n_estimators': 553, 'n_jobs': None, 'num_leaves': 54, 'objective': None, 'random_state': 42, 'reg_alpha': 0.0, 'reg_lambda': 0.0, 'subsample': 0.893373168360046, 'subsample_for_bin': 200000, 'subsample_freq': 0, 'verbose': -1}"
+        }
+      }
+    },
+    "Industrial": {
+      "phase6_RMSE_BTU": 1.27,
+      "phase7_RMSE_BTU": 0.0296,
+      "best_model": "lasso",
+      "improvement_vs_phase6": "+97.7%",
+      "all_models": {
+        "lasso": {
+          "RMSE_BTU": 0.0296,
+          "RMSE_std": 0.0654,
+          "MAE_BTU": 0.0247,
+          "R2": 1.0,
+          "best_params": "{'alpha': 3.8867220031030504e-05, 'copy_X': True, 'fit_intercept': True, 'max_iter': 20000, 'positive': False, 'precompute': False, 'random_state': None, 'selection': 'cyclic', 'tol': 0.0001, 'warm_start': False}"
+        },
+        "elasticnet": {
+          "RMSE_BTU": 0.0324,
+          "RMSE_std": 0.0677,
+          "MAE_BTU": 0.0274,
+          "R2": 1.0,
+          "best_params": "{'alpha': 5.2615404346838554e-05, 'copy_X': True, 'fit_intercept': True, 'l1_ratio': 0.9095714222302176, 'max_iter': 20000, 'positive': False, 'precompute': False, 'random_state': None, 'selection': 'cyclic', 'tol': 0.0001, 'warm_start': False}"
+        },
+        "ridge": {
+          "RMSE_BTU": 1.6248,
+          "RMSE_std": 4.6538,
+          "MAE_BTU": 1.2697,
+          "R2": 0.99901,
+          "best_params": "{'alpha': 0.0013279485776937774, 'copy_X': True, 'fit_intercept': True, 'max_iter': None, 'positive': False, 'random_state': None, 'solver': 'auto', 'tol': 0.0001}"
+        },
+        "xgboost": {
+          "RMSE_BTU": 43.5291,
+          "RMSE_std": 60.2483,
+          "MAE_BTU": 36.3149,
+          "R2": 0.70688,
+          "best_params": "{'objective': 'reg:squarederror', 'base_score': None, 'booster': None, 'callbacks': None, 'colsample_bylevel': None, 'colsample_bynode': None, 'colsample_bytree': 0.8580710964470185, 'device': None, 'early_stopping_rounds': None, 'enable_categorical': False, 'eval_metric': None, 'feature_types': None, 'feature_weights': None, 'gamma': None, 'grow_policy': None, 'importance_type': None, 'interaction_constraints': None, 'learning_rate': 0.03420181628667576, 'max_bin': None, 'max_cat_threshold': None, 'max_cat_to_onehot': None, 'max_delta_step': None, 'max_depth': 5, 'max_leaves': None, 'min_child_weight': 7, 'missing': nan, 'monotone_constraints': None, 'multi_strategy': None, 'n_estimators': 528, 'n_jobs': None, 'num_parallel_tree': None, 'random_state': 42, 'reg_alpha': None, 'reg_lambda': None, 'sampling_method': None, 'scale_pos_weight': None, 'subsample': 0.5216731617215983, 'tree_method': None, 'validate_parameters': None, 'verbosity': 0}"
+        },
+        "lgbm": {
+          "RMSE_BTU": 46.0995,
+          "RMSE_std": 59.1993,
+          "MAE_BTU": 38.793,
+          "R2": 0.69028,
+          "best_params": "{'boosting_type': 'gbdt', 'class_weight': None, 'colsample_bytree': 0.7233375164339166, 'importance_type': 'split', 'learning_rate': 0.05061144995183642, 'max_depth': 3, 'min_child_samples': 20, 'min_child_weight': 0.001, 'min_split_gain': 0.0, 'n_estimators': 590, 'n_jobs': None, 'num_leaves': 82, 'objective': None, 'random_state': 42, 'reg_alpha': 0.0, 'reg_lambda': 0.0, 'subsample': 0.5392620930670952, 'subsample_for_bin': 200000, 'subsample_freq': 0, 'verbose': -1}"
+        }
+      }
+    },
+    "Transportation": {
+      "phase6_RMSE_BTU": 2.39,
+      "phase7_RMSE_BTU": 0.0385,
+      "best_model": "lasso",
+      "improvement_vs_phase6": "+98.4%",
+      "all_models": {
+        "lasso": {
+          "RMSE_BTU": 0.0385,
+          "RMSE_std": 0.0283,
+          "MAE_BTU": 0.0299,
+          "R2": 1.0,
+          "best_params": "{'alpha': 4.539632564289288e-05, 'copy_X': True, 'fit_intercept': True, 'max_iter': 20000, 'positive': False, 'precompute': False, 'random_state': None, 'selection': 'cyclic', 'tol': 0.0001, 'warm_start': False}"
+        },
+        "elasticnet": {
+          "RMSE_BTU": 0.0397,
+          "RMSE_std": 0.0175,
+          "MAE_BTU": 0.0317,
+          "R2": 1.0,
+          "best_params": "{'alpha': 8.730659733108478e-05, 'copy_X': True, 'fit_intercept': True, 'l1_ratio': 0.45077407135243786, 'max_iter': 20000, 'positive': False, 'precompute': False, 'random_state': None, 'selection': 'cyclic', 'tol': 0.0001, 'warm_start': False}"
+        },
+        "ridge": {
+          "RMSE_BTU": 1.0184,
+          "RMSE_std": 3.0144,
+          "MAE_BTU": 0.9446,
+          "R2": 0.99753,
+          "best_params": "{'alpha': 0.001002884684427845, 'copy_X': True, 'fit_intercept': True, 'max_iter': None, 'positive': False, 'random_state': None, 'solver': 'auto', 'tol': 0.0001}"
+        },
+        "xgboost": {
+          "RMSE_BTU": 64.1713,
+          "RMSE_std": 33.2635,
+          "MAE_BTU": 48.7747,
+          "R2": 0.55645,
+          "best_params": "{'objective': 'reg:squarederror', 'base_score': None, 'booster': None, 'callbacks': None, 'colsample_bylevel': None, 'colsample_bynode': None, 'colsample_bytree': 0.7777495690719182, 'device': None, 'early_stopping_rounds': None, 'enable_categorical': False, 'eval_metric': None, 'feature_types': None, 'feature_weights': None, 'gamma': None, 'grow_policy': None, 'importance_type': None, 'interaction_constraints': None, 'learning_rate': 0.09931304662216524, 'max_bin': None, 'max_cat_threshold': None, 'max_cat_to_onehot': None, 'max_delta_step': None, 'max_depth': 6, 'max_leaves': None, 'min_child_weight': 6, 'missing': nan, 'monotone_constraints': None, 'multi_strategy': None, 'n_estimators': 500, 'n_jobs': None, 'num_parallel_tree': None, 'random_state': 42, 'reg_alpha': None, 'reg_lambda': None, 'sampling_method': None, 'scale_pos_weight': None, 'subsample': 0.519523189949842, 'tree_method': None, 'validate_parameters': None, 'verbosity': 0}"
+        },
+        "lgbm": {
+          "RMSE_BTU": 71.8564,
+          "RMSE_std": 33.7673,
+          "MAE_BTU": 54.779,
+          "R2": 0.43933,
+          "best_params": "{'boosting_type': 'gbdt', 'class_weight': None, 'colsample_bytree': 0.4248940461223844, 'importance_type': 'split', 'learning_rate': 0.061738147105429714, 'max_depth': 8, 'min_child_samples': 20, 'min_child_weight': 0.001, 'min_split_gain': 0.0, 'n_estimators': 492, 'n_jobs': None, 'num_leaves': 66, 'objective': None, 'random_state': 42, 'reg_alpha': 0.0, 'reg_lambda': 0.0, 'subsample': 0.8523163503614019, 'subsample_for_bin': 200000, 'subsample_freq': 0, 'verbose': -1}"
+        }
+      }
+    }
+  }
+}

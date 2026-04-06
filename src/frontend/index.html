@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Forecasting API Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Chart.js for visualizing output -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Model Configuration -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h2>NeuroCast<span> AI</span></h2>
+            </div>
+
+            <p class="sidebar-description">
+                Predictive analytics for energy consumption powered by optimized Machine Learning backends.
+            </p>
+
+            <form id="predict-form" class="config-form">
+                <div class="form-group">
+                    <label for="sector">Target Sector</label>
+                    <div class="select-wrapper">
+                        <select id="sector" name="sector">
+                            <option value="Commercial">Commercial</option>
+                            <option value="Residential">Residential</option>
+                            <option value="Industrial">Industrial</option>
+                            <option value="Transportation">Transportation</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="horizon">Forecast Horizon (Months)</label>
+                    <input type="number" id="horizon" name="horizon" min="1" max="24" value="12">
+                </div>
+
+                <div class="form-group toggle-group">
+                    <label class="toggle-container">
+                        Use Lasso Feature Selection
+                        <input type="checkbox" id="feature" name="feature" checked>
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+
+                <button type="submit" id="submit-btn" class="btn primary-btn">
+                    <span class="btn-text">Generate Forecast</span>
+                    <div class="spinner hidden" id="loading-spinner"></div>
+                </button>
+            </form>
+
+            <div class="system-status">
+                <div class="status-indicator online"></div>
+                <span>API Status: Online</span>
+            </div>
+        </aside>
+
+        <!-- Main Display Content -->
+        <main class="content">
+            <header class="content-header">
+                <h1>Energy Sector Forecast Generation</h1>
+                <p>Run 12-to-24 month recursive predictions from our core models.</p>
+            </header>
+
+            <div class="panels">
+                <div class="panel chart-panel">
+                    <h3>Prediction Velocity</h3>
+                    <div class="chart-container">
+                        <canvas id="forecastChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="panel metrics-panel">
+                    <h3>Prediction Values (Trillion BTU)</h3>
+                    <div class="metrics-grid" id="metrics-grid">
+                        <div class="metric-placeholder">Run a forecast to see values...</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

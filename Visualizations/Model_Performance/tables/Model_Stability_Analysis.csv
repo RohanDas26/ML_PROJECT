@@ -1,0 +1,5 @@
+Sector,Model,CV_Score,Stability
+Commercial,OMP,72.83712684009022,Unstable
+Industrial,ElasticNet,71.53175556527057,Unstable
+Residential,OMP,78.71303408257064,Unstable
+Transportation,OMP,52.79941874110351,Unstable

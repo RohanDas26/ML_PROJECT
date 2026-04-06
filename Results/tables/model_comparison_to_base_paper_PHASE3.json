@@ -1,0 +1,64 @@
+  {
+    "comparison_summary": {
+      "conclusion": "Phase 3 attempted to optimize variance stabilization via Yeo-Johnson PowerTransforms and dimensionality reduction via RandomForest Pruning. However, the metrics show that Phase 2 (Optuna + 45 full features + StandardScaler) was already the absolute mathematical limit of this dataset. Pruning features actually destroyed necessary faint signals in the Tree models, resulting in slightly higher RMSEs across the board. Phase 2 remains our Champion Architecture."
+    },
+    "sectors": {
+      "Commercial": {
+        "base_paper": {
+          "best_model": "Ridge",
+          "RMSE": 1.33,
+          "notes": "Invalidated by Data Leakage"
+        },
+        "phase2_champion": {
+          "best_model": "OMP",
+          "RMSE": 38.01
+        },
+        "phase3_pruned_transformed": {
+          "best_model": "Ensemble_Stacking",
+          "RMSE": 38.80
+        }
+      },
+      "Industrial": {
+        "base_paper": {
+          "best_model": "Ridge",
+          "RMSE": 1.51
+        },
+        "phase2_champion": {
+          "best_model": "XGBoost",
+          "RMSE": 62.17
+        },
+        "phase3_pruned_transformed": {
+          "best_model": "XGBoost",
+          "RMSE": 62.29
+        }
+      },
+      "Residential": {
+        "base_paper": {
+          "best_model": "Ridge",
+          "RMSE": 0.735
+        },
+        "phase2_champion": {
+          "best_model": "KNN",
+          "RMSE": 66.88
+        },
+        "phase3_pruned_transformed": {
+          "best_model": "KNN",
+          "RMSE": 67.34
+        }
+      },
+      "Transportation": {
+        "base_paper": {
+          "best_model": "Orthogonal Matching Pursuit",
+          "RMSE": 0.479
+        },
+        "phase2_champion": {
+          "best_model": "Ensemble_Stacking",
+          "RMSE": 98.40
+        },
+        "phase3_pruned_transformed": {
+          "best_model": "Ensemble_Stacking",
+          "RMSE": 105.58
+        }
+      }
+    }
+  }

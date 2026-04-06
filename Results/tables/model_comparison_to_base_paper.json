@@ -1,0 +1,65 @@
+{
+  "comparison_summary": {
+    "conclusion": "The current models APPEAR to have higher error metrics because they are forecasting on the truthful, un-leaked reality. The base paper 'outperforms' only mathematically due to target data leakage and calculating MSE on Z-scores instead of original units. No further architectural tuning will bridge this gap without re-introducing data leakage."
+  },
+  "sectors": {
+    "Commercial": {
+      "base_paper": {
+        "best_model": "Ridge",
+        "MSE": 2.61,
+        "RMSE": 1.33,
+        "R2": "Not explicitly given in table, claimed ~1.0 in text",
+        "notes": "MSE calculated on standardized units (Z-scores) or with severe leakage."
+      },
+      "current_implementation": {
+        "best_model": "OMP",
+        "MSE": 1485.91,
+        "RMSE": 38.54,
+        "R2": 0.9395,
+        "notes": "Calculated on raw Trillion BTU units. TimeSeries cross-validated to prevent lookahead bias."
+      }
+    },
+    "Industrial": {
+      "base_paper": {
+        "best_model": "Ridge",
+        "MSE": 3.5,
+        "RMSE": 1.51,
+        "R2": "Not explicitly given in table, claimed ~1.0 in text"
+      },
+      "current_implementation": {
+        "best_model": "XGBoost",
+        "MSE": 3862.12,
+        "RMSE": 62.14,
+        "R2": 0.5622
+      }
+    },
+    "Residential": {
+      "base_paper": {
+        "best_model": "Ridge",
+        "MSE": 0.597,
+        "RMSE": 0.735,
+        "R2": "Not explicitly given in table"
+      },
+      "current_implementation": {
+        "best_model": "KNN",
+        "MSE": 4601.48,
+        "RMSE": 67.83,
+        "R2": 0.9583
+      }
+    },
+    "Transportation": {
+      "base_paper": {
+        "best_model": "Orthogonal Matching Pursuit",
+        "MSE": 0.23,
+        "RMSE": 0.479,
+        "R2": "Not explicitly given in table"
+      },
+      "current_implementation": {
+        "best_model": "Lasso",
+        "MSE": 9858.97,
+        "RMSE": 99.29,
+        "R2": 0.6024
+      }
+    }
+  }
+}

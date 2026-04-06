@@ -1,0 +1,90 @@
+{
+  "Residential": {
+    "original": {
+      "ADF_Statistic": -1.8196669477437555,
+      "ADF_P_Value": 0.37074223539048473,
+      "ADF_Stationary": "False",
+      "KPSS_Statistic": 0.6837787819102473,
+      "KPSS_P_Value": 0.01,
+      "KPSS_Stationary": "False",
+      "Stationary": "False"
+    },
+    "differenced": {
+      "ADF_Statistic": -10.817171438459086,
+      "ADF_P_Value": 1.8445557146509056e-19,
+      "ADF_Stationary": "True",
+      "KPSS_Statistic": 0.08010045464190103,
+      "KPSS_P_Value": 0.1,
+      "KPSS_Stationary": "True",
+      "Stationary": "True"
+    },
+    "trend_strength": 0.809047052811037,
+    "seasonal_strength": 0.9379194433257475
+  },
+  "Commercial": {
+    "original": {
+      "ADF_Statistic": -1.7474500980956411,
+      "ADF_P_Value": 0.40684532302302645,
+      "ADF_Stationary": "False",
+      "KPSS_Statistic": 1.0987728013046902,
+      "KPSS_P_Value": 0.01,
+      "KPSS_Stationary": "False",
+      "Stationary": "False"
+    },
+    "differenced": {
+      "ADF_Statistic": -8.928184314719745,
+      "ADF_P_Value": 9.980231719614892e-15,
+      "ADF_Stationary": "True",
+      "KPSS_Statistic": 0.06135569730000819,
+      "KPSS_P_Value": 0.1,
+      "KPSS_Stationary": "True",
+      "Stationary": "True"
+    },
+    "trend_strength": 0.9787001363377665,
+    "seasonal_strength": 0.9156257449916415
+  },
+  "Industrial": {
+    "original": {
+      "ADF_Statistic": -2.3706718131270628,
+      "ADF_P_Value": 0.15018571746745457,
+      "ADF_Stationary": "False",
+      "KPSS_Statistic": 0.2971507666918866,
+      "KPSS_P_Value": 0.01,
+      "KPSS_Stationary": "False",
+      "Stationary": "False"
+    },
+    "differenced": {
+      "ADF_Statistic": -7.021644166215016,
+      "ADF_P_Value": 6.520198087913233e-10,
+      "ADF_Stationary": "True",
+      "KPSS_Statistic": 0.05195722687607589,
+      "KPSS_P_Value": 0.1,
+      "KPSS_Stationary": "True",
+      "Stationary": "True"
+    },
+    "trend_strength": 0.8744030467520315,
+    "seasonal_strength": 0.7475919275361027
+  },
+  "Transportation": {
+    "original": {
+      "ADF_Statistic": -1.467725972260936,
+      "ADF_P_Value": 0.5494121738664052,
+      "ADF_Stationary": "False",
+      "KPSS_Statistic": 0.5630054306562015,
+      "KPSS_P_Value": 0.01,
+      "KPSS_Stationary": "False",
+      "Stationary": "False"
+    },
+    "differenced": {
+      "ADF_Statistic": -7.420536903420241,
+      "ADF_P_Value": 6.754907432410521e-11,
+      "ADF_Stationary": "True",
+      "KPSS_Statistic": 0.04798045927128651,
+      "KPSS_P_Value": 0.1,
+      "KPSS_Stationary": "True",
+      "Stationary": "True"
+    },
+    "trend_strength": 0.9717651173336057,
+    "seasonal_strength": 0.7012738446397966
+  }
+}

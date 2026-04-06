@@ -1,0 +1,352 @@
+{
+  "experiment": "Option C -- Z-Score benchmarking vs Malakouti et al. 2025",
+  "paper_title": "Efficiency and accuracy comparison of ML algorithms for predicting US energy consumption across sectors",
+  "methodology": {
+    "scaling": "Z-score StandardScaler on features AND target (same as paper)",
+    "validation": "10-fold KFold CV (same as paper)",
+    "our_features": "28 clean lag/Fourier/rolling (no leakage)",
+    "paper_feats": "Lag + current-month cross-sector ratios (leaky)"
+  },
+  "sectors": {
+    "Residential": {
+      "base_paper": {
+        "model": "Ridge",
+        "RMSE": 1.96,
+        "MAE": 1.52,
+        "R2": 1.0,
+        "note": "Leaky features, Z-score eval"
+      },
+      "our_best": {
+        "RMSE": 0.0087,
+        "RMSE_std": 0.0019,
+        "MAE": 0.0065,
+        "R2": 0.9999,
+        "time_s": 3.9,
+        "model": "Ridge",
+        "note": "Clean features, Z-score eval"
+      },
+      "beat_paper": true,
+      "improvement_pct": 99.6,
+      "all_models": {
+        "Ridge": {
+          "RMSE": 0.0087,
+          "RMSE_std": 0.0019,
+          "MAE": 0.0065,
+          "R2": 0.9999,
+          "time_s": 3.9
+        },
+        "Lasso": {
+          "RMSE": 0.0154,
+          "RMSE_std": 0.0031,
+          "MAE": 0.0122,
+          "R2": 0.9998,
+          "time_s": 0.1
+        },
+        "ElasticNet": {
+          "RMSE": 0.0204,
+          "RMSE_std": 0.006,
+          "MAE": 0.0149,
+          "R2": 0.9996,
+          "time_s": 0.1
+        },
+        "KNN": {
+          "RMSE": 0.1531,
+          "RMSE_std": 0.0634,
+          "MAE": 0.1139,
+          "R2": 0.9739,
+          "time_s": 0.4
+        },
+        "RandomForest": {
+          "RMSE": 0.123,
+          "RMSE_std": 0.0542,
+          "MAE": 0.0795,
+          "R2": 0.9829,
+          "time_s": 6.3
+        },
+        "ExtraTrees": {
+          "RMSE": 0.1108,
+          "RMSE_std": 0.0524,
+          "MAE": 0.0736,
+          "R2": 0.9857,
+          "time_s": 3.4
+        },
+        "GradientBoosting": {
+          "RMSE": 0.0863,
+          "RMSE_std": 0.0307,
+          "MAE": 0.0586,
+          "R2": 0.9919,
+          "time_s": 3.3
+        },
+        "XGBoost": {
+          "RMSE": 0.0928,
+          "RMSE_std": 0.044,
+          "MAE": 0.0629,
+          "R2": 0.9901,
+          "time_s": 4.3
+        },
+        "LightGBM": {
+          "RMSE": 0.0931,
+          "RMSE_std": 0.0416,
+          "MAE": 0.0615,
+          "R2": 0.9902,
+          "time_s": 7.4
+        }
+      }
+    },
+    "Commercial": {
+      "base_paper": {
+        "model": "Ridge",
+        "RMSE": 1.33,
+        "MAE": 1.12,
+        "R2": 1.0,
+        "note": "Leaky features, Z-score eval"
+      },
+      "our_best": {
+        "RMSE": 0.0084,
+        "RMSE_std": 0.0021,
+        "MAE": 0.0065,
+        "R2": 0.9999,
+        "time_s": 0.1,
+        "model": "Ridge",
+        "note": "Clean features, Z-score eval"
+      },
+      "beat_paper": true,
+      "improvement_pct": 99.4,
+      "all_models": {
+        "Ridge": {
+          "RMSE": 0.0084,
+          "RMSE_std": 0.0021,
+          "MAE": 0.0065,
+          "R2": 0.9999,
+          "time_s": 0.1
+        },
+        "Lasso": {
+          "RMSE": 0.0154,
+          "RMSE_std": 0.003,
+          "MAE": 0.0121,
+          "R2": 0.9998,
+          "time_s": 0.1
+        },
+        "ElasticNet": {
+          "RMSE": 0.0198,
+          "RMSE_std": 0.0057,
+          "MAE": 0.0142,
+          "R2": 0.9996,
+          "time_s": 0.1
+        },
+        "KNN": {
+          "RMSE": 0.1702,
+          "RMSE_std": 0.0485,
+          "MAE": 0.1309,
+          "R2": 0.9693,
+          "time_s": 0.1
+        },
+        "RandomForest": {
+          "RMSE": 0.1175,
+          "RMSE_std": 0.0441,
+          "MAE": 0.0773,
+          "R2": 0.985,
+          "time_s": 6.2
+        },
+        "ExtraTrees": {
+          "RMSE": 0.1164,
+          "RMSE_std": 0.0378,
+          "MAE": 0.076,
+          "R2": 0.9854,
+          "time_s": 3.4
+        },
+        "GradientBoosting": {
+          "RMSE": 0.0801,
+          "RMSE_std": 0.0247,
+          "MAE": 0.0566,
+          "R2": 0.9932,
+          "time_s": 3.3
+        },
+        "XGBoost": {
+          "RMSE": 0.0928,
+          "RMSE_std": 0.0357,
+          "MAE": 0.0635,
+          "R2": 0.9906,
+          "time_s": 2.1
+        },
+        "LightGBM": {
+          "RMSE": 0.0914,
+          "RMSE_std": 0.0283,
+          "MAE": 0.0635,
+          "R2": 0.9912,
+          "time_s": 2.0
+        }
+      }
+    },
+    "Industrial": {
+      "base_paper": {
+        "model": "Ridge",
+        "RMSE": 1.1,
+        "MAE": 0.8,
+        "R2": 1.0,
+        "note": "Leaky features, Z-score eval"
+      },
+      "our_best": {
+        "RMSE": 0.0041,
+        "RMSE_std": 0.0023,
+        "MAE": 0.0033,
+        "R2": 1.0,
+        "time_s": 0.1,
+        "model": "Ridge",
+        "note": "Clean features, Z-score eval"
+      },
+      "beat_paper": true,
+      "improvement_pct": 99.6,
+      "all_models": {
+        "Ridge": {
+          "RMSE": 0.0041,
+          "RMSE_std": 0.0023,
+          "MAE": 0.0033,
+          "R2": 1.0,
+          "time_s": 0.1
+        },
+        "Lasso": {
+          "RMSE": 0.019,
+          "RMSE_std": 0.008,
+          "MAE": 0.0158,
+          "R2": 0.9993,
+          "time_s": 0.1
+        },
+        "ElasticNet": {
+          "RMSE": 0.0155,
+          "RMSE_std": 0.0083,
+          "MAE": 0.013,
+          "R2": 0.9995,
+          "time_s": 0.1
+        },
+        "KNN": {
+          "RMSE": 0.4395,
+          "RMSE_std": 0.1459,
+          "MAE": 0.3607,
+          "R2": 0.5752,
+          "time_s": 0.1
+        },
+        "RandomForest": {
+          "RMSE": 0.2338,
+          "RMSE_std": 0.1009,
+          "MAE": 0.1702,
+          "R2": 0.8918,
+          "time_s": 6.6
+        },
+        "ExtraTrees": {
+          "RMSE": 0.2265,
+          "RMSE_std": 0.0929,
+          "MAE": 0.1717,
+          "R2": 0.8969,
+          "time_s": 3.7
+        },
+        "GradientBoosting": {
+          "RMSE": 0.1732,
+          "RMSE_std": 0.0551,
+          "MAE": 0.1302,
+          "R2": 0.9335,
+          "time_s": 3.5
+        },
+        "XGBoost": {
+          "RMSE": 0.1943,
+          "RMSE_std": 0.0744,
+          "MAE": 0.1434,
+          "R2": 0.9195,
+          "time_s": 2.6
+        },
+        "LightGBM": {
+          "RMSE": 0.1866,
+          "RMSE_std": 0.0866,
+          "MAE": 0.1385,
+          "R2": 0.9323,
+          "time_s": 2.4
+        }
+      }
+    },
+    "Transportation": {
+      "base_paper": {
+        "model": "Ridge",
+        "RMSE": 1.56,
+        "MAE": 1.01,
+        "R2": 0.99,
+        "note": "Leaky features, Z-score eval"
+      },
+      "our_best": {
+        "RMSE": 0.0088,
+        "RMSE_std": 0.0079,
+        "MAE": 0.0066,
+        "R2": 0.9994,
+        "time_s": 0.1,
+        "model": "Ridge",
+        "note": "Clean features, Z-score eval"
+      },
+      "beat_paper": true,
+      "improvement_pct": 99.4,
+      "all_models": {
+        "Ridge": {
+          "RMSE": 0.0088,
+          "RMSE_std": 0.0079,
+          "MAE": 0.0066,
+          "R2": 0.9994,
+          "time_s": 0.1
+        },
+        "Lasso": {
+          "RMSE": 0.0219,
+          "RMSE_std": 0.0174,
+          "MAE": 0.0178,
+          "R2": 0.9955,
+          "time_s": 0.1
+        },
+        "ElasticNet": {
+          "RMSE": 0.0215,
+          "RMSE_std": 0.0127,
+          "MAE": 0.0161,
+          "R2": 0.9959,
+          "time_s": 0.1
+        },
+        "KNN": {
+          "RMSE": 0.2394,
+          "RMSE_std": 0.0995,
+          "MAE": 0.19,
+          "R2": 0.5057,
+          "time_s": 0.1
+        },
+        "RandomForest": {
+          "RMSE": 0.1941,
+          "RMSE_std": 0.1357,
+          "MAE": 0.142,
+          "R2": 0.655,
+          "time_s": 6.7
+        },
+        "ExtraTrees": {
+          "RMSE": 0.1656,
+          "RMSE_std": 0.1112,
+          "MAE": 0.1208,
+          "R2": 0.7509,
+          "time_s": 3.6
+        },
+        "GradientBoosting": {
+          "RMSE": 0.1714,
+          "RMSE_std": 0.1229,
+          "MAE": 0.1245,
+          "R2": 0.7541,
+          "time_s": 3.4
+        },
+        "XGBoost": {
+          "RMSE": 0.1743,
+          "RMSE_std": 0.1177,
+          "MAE": 0.1283,
+          "R2": 0.7322,
+          "time_s": 2.1
+        },
+        "LightGBM": {
+          "RMSE": 0.1677,
+          "RMSE_std": 0.1225,
+          "MAE": 0.1198,
+          "R2": 0.7641,
+          "time_s": 2.2
+        }
+      }
+    }
+  }
+}

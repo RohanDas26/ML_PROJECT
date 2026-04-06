@@ -1,0 +1,41 @@
+# =============================================================================
+# Energy Forecasting Framework — Python Dependencies
+# =============================================================================
+# Install with:  pip install -r requirements.txt
+
+# Core
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+scipy>=1.11.0
+openpyxl>=3.1.0
+
+# Configuration
+pyyaml>=6.0
+
+# Model serialization
+joblib>=1.3.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Statistical analysis
+statsmodels>=0.14.0
+
+# Boosting models (optional — install if available)
+xgboost>=2.0.0
+lightgbm>=4.0.0
+
+# Testing
+pytest>=7.4.0
+
+# Hyperparameter optimization (Phase 4)
+# optuna>=3.4.0
+
+# Explainability (Phase 6)
+# shap>=0.43.0
+
+# Deep Learning (Phase 5)
+# torch>=2.1.0
+# pytorch-forecasting>=1.0.0

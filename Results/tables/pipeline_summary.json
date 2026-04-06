@@ -1,0 +1,114 @@
+{
+  "Residential": {
+    "best_model": "KNN",
+    "RMSE": 67.36,
+    "R2": 0.9589,
+    "diagnostics": {
+      "mean_residual": -4.856591492368573,
+      "std_residual": 67.18719739976957,
+      "skewness": 0.24619468089587976,
+      "kurtosis": 2.266304999246276,
+      "durbin_watson": 2.064563639167567,
+      "LB_Statistic": 17.726753996306943,
+      "LB_P_Value": 0.6054028274437953,
+      "No_Autocorrelation": true,
+      "SW_Statistic": 0.9326007614475881,
+      "SW_P_Value": 2.4336766497632443e-05,
+      "Normal_Residuals": "False"
+    },
+    "stationarity": {
+      "ADF_Statistic": -3.1185693570843878,
+      "ADF_P_Value": 0.0252091460925669,
+      "ADF_Stationary": "True",
+      "KPSS_Statistic": 0.013458477292997099,
+      "KPSS_P_Value": 0.1,
+      "KPSS_Stationary": "True",
+      "Stationary": "True"
+    },
+    "forecast_next_12m": "Generated"
+  },
+  "Commercial": {
+    "best_model": "Ensemble_Stacking",
+    "RMSE": 38.63,
+    "R2": 0.9392,
+    "diagnostics": {
+      "mean_residual": 12.603948968313167,
+      "std_residual": 36.51186698686039,
+      "skewness": -0.2694614542542796,
+      "kurtosis": 0.5624357213553055,
+      "durbin_watson": 2.1269615884237383,
+      "LB_Statistic": 18.785865981294716,
+      "LB_P_Value": 0.5357816187904736,
+      "No_Autocorrelation": true,
+      "SW_Statistic": 0.961691673288551,
+      "SW_P_Value": 0.0025532257523303696,
+      "Normal_Residuals": "False"
+    },
+    "stationarity": {
+      "ADF_Statistic": -2.617281137448551,
+      "ADF_P_Value": 0.08947794765164996,
+      "ADF_Stationary": "False",
+      "KPSS_Statistic": 0.02917286397512091,
+      "KPSS_P_Value": 0.1,
+      "KPSS_Stationary": "True",
+      "Stationary": "False"
+    },
+    "forecast_next_12m": "Generated"
+  },
+  "Industrial": {
+    "best_model": "XGBoost",
+    "RMSE": 61.92,
+    "R2": 0.5654,
+    "diagnostics": {
+      "mean_residual": 12.630897720201887,
+      "std_residual": 60.61684963850457,
+      "skewness": -1.4888071974922468,
+      "kurtosis": 5.935822865078377,
+      "durbin_watson": 1.6404518401348571,
+      "LB_Statistic": 30.882523666892478,
+      "LB_P_Value": 0.056760560607715345,
+      "No_Autocorrelation": true,
+      "SW_Statistic": 0.8948357008140263,
+      "SW_P_Value": 2.147200993474244e-07,
+      "Normal_Residuals": "False"
+    },
+    "stationarity": {
+      "ADF_Statistic": -2.683166110923314,
+      "ADF_P_Value": 0.07699684095794032,
+      "ADF_Stationary": "False",
+      "KPSS_Statistic": 0.1795863236947484,
+      "KPSS_P_Value": 0.02365512861446935,
+      "KPSS_Stationary": "False",
+      "Stationary": "False"
+    },
+    "forecast_next_12m": "Generated"
+  },
+  "Transportation": {
+    "best_model": "Ensemble_Stacking",
+    "RMSE": 94.81,
+    "R2": 0.6375,
+    "diagnostics": {
+      "mean_residual": -25.68126864821015,
+      "std_residual": 91.2645789504471,
+      "skewness": -4.284353775247534,
+      "kurtosis": 28.082580068739553,
+      "durbin_watson": 0.866132535275216,
+      "LB_Statistic": 42.92811678467761,
+      "LB_P_Value": 0.0020895064919084004,
+      "No_Autocorrelation": false,
+      "SW_Statistic": 0.6281578442917177,
+      "SW_P_Value": 1.6929301845003563e-15,
+      "Normal_Residuals": "False"
+    },
+    "stationarity": {
+      "ADF_Statistic": -1.3770578694941968,
+      "ADF_P_Value": 0.59322411470271,
+      "ADF_Stationary": "False",
+      "KPSS_Statistic": 0.4837823119394678,
+      "KPSS_P_Value": 0.01,
+      "KPSS_Stationary": "False",
+      "Stationary": "False"
+    },
+    "forecast_next_12m": "Generated"
+  }
+}

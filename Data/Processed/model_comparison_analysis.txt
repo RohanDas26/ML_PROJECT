@@ -1,0 +1,18 @@
+Energy Forecasting Model Comparison
+==================================================
+
+BASELINE METRICS (Linear Models):
+           model       rmse        mae       r2
+           Lasso 112.764055  86.459844 0.905428
+LinearRegression 116.788772  89.087683 0.898556
+      ElasticNet 119.373270  89.502921 0.894017
+           Ridge 134.440169 100.764054 0.865575
+        LightGBM 150.492978 117.716760 0.831556
+
+FINAL TUNED MODEL (LightGBM):
+RMSE: 146.5967
+MAE:  116.9917
+R²:   0.8402
+
+CONCLUSION: Lasso outperforms all tree models on this dataset.
+Reason: Strong monotonic trend + lag autocorrelation favor linear models.

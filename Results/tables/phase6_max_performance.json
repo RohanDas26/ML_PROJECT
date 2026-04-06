@@ -1,0 +1,261 @@
+{
+  "experiment": "Phase 6 -- Maximum push without new data",
+  "techniques": [
+    "Cross-sector lagged features (lag-1 and lag-12 of other sectors)",
+    "Richer calendar features (quarter, season, linear trend, YoY growth)",
+    "Fourier harmonics (6 orders)",
+    "Stacking ensemble (base predictions -> meta-learner via inner CV)",
+    "Multi-output joint learning (all 4 sectors simultaneously)",
+    "Per-fold StandardScaler + TimeSeriesSplit (fully fair)"
+  ],
+  "sectors": {
+    "Residential": {
+      "phase2_best_RMSE_BTU": 67.83,
+      "phase6_best_RMSE_BTU": 2.53,
+      "best_model": "Lasso",
+      "improvement_vs_phase2": "+96.3%",
+      "all_models": {
+        "Ridge": {
+          "RMSE_BTU": 9.16,
+          "RMSE_std": 8.07,
+          "MAE_BTU": 7.41,
+          "R2": 0.9983
+        },
+        "Lasso": {
+          "RMSE_BTU": 2.53,
+          "RMSE_std": 0.34,
+          "MAE_BTU": 2.09,
+          "R2": 0.9999
+        },
+        "ElasticNet": {
+          "RMSE_BTU": 6.54,
+          "RMSE_std": 2.02,
+          "MAE_BTU": 5.28,
+          "R2": 0.9995
+        },
+        "GradBoosting": {
+          "RMSE_BTU": 43.86,
+          "RMSE_std": 23.59,
+          "MAE_BTU": 30.48,
+          "R2": 0.972
+        },
+        "ExtraTrees": {
+          "RMSE_BTU": 43.87,
+          "RMSE_std": 17.29,
+          "MAE_BTU": 31.53,
+          "R2": 0.9761
+        },
+        "XGBoost": {
+          "RMSE_BTU": 41.92,
+          "RMSE_std": 20.32,
+          "MAE_BTU": 30.47,
+          "R2": 0.9759
+        },
+        "LightGBM": {
+          "RMSE_BTU": 41.18,
+          "RMSE_std": 14.78,
+          "MAE_BTU": 28.98,
+          "R2": 0.9792
+        },
+        "Stacking(Ridge-meta)": {
+          "RMSE_BTU": 16.64,
+          "RMSE_std": 6.55,
+          "MAE_BTU": null,
+          "R2": null
+        },
+        "MultiOutput(Ridge)": {
+          "RMSE_BTU": 13.19,
+          "RMSE_std": null,
+          "MAE_BTU": null,
+          "R2": null
+        }
+      }
+    },
+    "Commercial": {
+      "phase2_best_RMSE_BTU": 38.55,
+      "phase6_best_RMSE_BTU": 1.22,
+      "best_model": "Lasso",
+      "improvement_vs_phase2": "+96.8%",
+      "all_models": {
+        "Ridge": {
+          "RMSE_BTU": 3.96,
+          "RMSE_std": 2.2,
+          "MAE_BTU": 3.08,
+          "R2": 0.9989
+        },
+        "Lasso": {
+          "RMSE_BTU": 1.22,
+          "RMSE_std": 0.19,
+          "MAE_BTU": 0.89,
+          "R2": 0.9999
+        },
+        "ElasticNet": {
+          "RMSE_BTU": 3.15,
+          "RMSE_std": 0.97,
+          "MAE_BTU": 2.47,
+          "R2": 0.9995
+        },
+        "GradBoosting": {
+          "RMSE_BTU": 21.2,
+          "RMSE_std": 9.13,
+          "MAE_BTU": 14.01,
+          "R2": 0.9734
+        },
+        "ExtraTrees": {
+          "RMSE_BTU": 21.19,
+          "RMSE_std": 6.4,
+          "MAE_BTU": 15.21,
+          "R2": 0.9766
+        },
+        "XGBoost": {
+          "RMSE_BTU": 19.21,
+          "RMSE_std": 7.84,
+          "MAE_BTU": 13.6,
+          "R2": 0.9787
+        },
+        "LightGBM": {
+          "RMSE_BTU": 19.76,
+          "RMSE_std": 6.45,
+          "MAE_BTU": 14.13,
+          "R2": 0.9785
+        },
+        "Stacking(Ridge-meta)": {
+          "RMSE_BTU": 4.34,
+          "RMSE_std": 1.24,
+          "MAE_BTU": null,
+          "R2": null
+        },
+        "MultiOutput(Ridge)": {
+          "RMSE_BTU": 5.45,
+          "RMSE_std": null,
+          "MAE_BTU": null,
+          "R2": null
+        }
+      }
+    },
+    "Industrial": {
+      "phase2_best_RMSE_BTU": 62.15,
+      "phase6_best_RMSE_BTU": 1.27,
+      "best_model": "Lasso",
+      "improvement_vs_phase2": "+98.0%",
+      "all_models": {
+        "Ridge": {
+          "RMSE_BTU": 9.18,
+          "RMSE_std": 18.01,
+          "MAE_BTU": 7.75,
+          "R2": 0.9867
+        },
+        "Lasso": {
+          "RMSE_BTU": 1.27,
+          "RMSE_std": 0.49,
+          "MAE_BTU": 1.06,
+          "R2": 0.9998
+        },
+        "ElasticNet": {
+          "RMSE_BTU": 1.49,
+          "RMSE_std": 1.02,
+          "MAE_BTU": 1.2,
+          "R2": 0.9997
+        },
+        "GradBoosting": {
+          "RMSE_BTU": 50.72,
+          "RMSE_std": 52.95,
+          "MAE_BTU": 41.0,
+          "R2": 0.6731
+        },
+        "ExtraTrees": {
+          "RMSE_BTU": 55.3,
+          "RMSE_std": 49.83,
+          "MAE_BTU": 43.9,
+          "R2": 0.6118
+        },
+        "XGBoost": {
+          "RMSE_BTU": 45.17,
+          "RMSE_std": 44.24,
+          "MAE_BTU": 35.2,
+          "R2": 0.7545
+        },
+        "LightGBM": {
+          "RMSE_BTU": 46.47,
+          "RMSE_std": 51.36,
+          "MAE_BTU": 36.12,
+          "R2": 0.7484
+        },
+        "Stacking(Ridge-meta)": {
+          "RMSE_BTU": 23.11,
+          "RMSE_std": 14.26,
+          "MAE_BTU": null,
+          "R2": null
+        },
+        "MultiOutput(Ridge)": {
+          "RMSE_BTU": 5.38,
+          "RMSE_std": null,
+          "MAE_BTU": null,
+          "R2": null
+        }
+      }
+    },
+    "Transportation": {
+      "phase2_best_RMSE_BTU": 99.29,
+      "phase6_best_RMSE_BTU": 2.39,
+      "best_model": "Lasso",
+      "improvement_vs_phase2": "+97.6%",
+      "all_models": {
+        "Ridge": {
+          "RMSE_BTU": 8.73,
+          "RMSE_std": 13.51,
+          "MAE_BTU": 7.24,
+          "R2": 0.9455
+        },
+        "Lasso": {
+          "RMSE_BTU": 2.39,
+          "RMSE_std": 1.5,
+          "MAE_BTU": 2.03,
+          "R2": 0.9995
+        },
+        "ElasticNet": {
+          "RMSE_BTU": 3.24,
+          "RMSE_std": 1.91,
+          "MAE_BTU": 2.56,
+          "R2": 0.9989
+        },
+        "GradBoosting": {
+          "RMSE_BTU": 68.04,
+          "RMSE_std": 39.52,
+          "MAE_BTU": 50.91,
+          "R2": 0.4566
+        },
+        "ExtraTrees": {
+          "RMSE_BTU": 74.63,
+          "RMSE_std": 34.36,
+          "MAE_BTU": 57.09,
+          "R2": 0.3223
+        },
+        "XGBoost": {
+          "RMSE_BTU": 69.82,
+          "RMSE_std": 37.94,
+          "MAE_BTU": 53.29,
+          "R2": 0.4088
+        },
+        "LightGBM": {
+          "RMSE_BTU": 77.35,
+          "RMSE_std": 40.59,
+          "MAE_BTU": 59.6,
+          "R2": 0.2863
+        },
+        "Stacking(Ridge-meta)": {
+          "RMSE_BTU": 61.59,
+          "RMSE_std": 40.74,
+          "MAE_BTU": null,
+          "R2": null
+        },
+        "MultiOutput(Ridge)": {
+          "RMSE_BTU": 14.59,
+          "RMSE_std": null,
+          "MAE_BTU": null,
+          "R2": null
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,335 @@
+/* Global styles */
+:root {
+  --nav-bg: rgba(26, 30, 41, 0.85);
+  --app-bg: #0f121b;
+  --panel-bg: rgba(43, 48, 62, 0.6);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --accent-primary: #6c5ce7;
+  --accent-secondary: #00d2d3;
+  --text-main: #f1f2f6;
+  --text-dim: #a4b0be;
+  
+  --font-base: 'Inter', -apple-system, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-base);
+  background-color: var(--app-bg);
+  color: var(--text-main);
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(108, 92, 231, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(0, 210, 211, 0.1) 0%, transparent 40%);
+  min-height: 100vh;
+  display: flex;
+}
+
+/* Base Layout Container */
+.dashboard-container {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 300px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-right: 1px solid var(--border-color);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+}
+
+.logo h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.logo span {
+  color: var(--accent-secondary);
+}
+
+.sidebar-description {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+/* Form Styles */
+.config-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex-grow: 1;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+select, input[type="number"] {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: rgba(15, 18, 27, 0.5);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: white;
+  font-family: var(--font-base);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+select:focus, input[type="number"]:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.2);
+}
+
+/* Custom Checkbox Toggle */
+.toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-container input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkmark {
+  position: relative;
+  height: 24px;
+  width: 44px;
+  background-color: rgba(15, 18, 27, 0.8);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  transition: .3s;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background-color: var(--text-dim);
+  border-radius: 50%;
+  transition: .3s;
+}
+
+.toggle-container input:checked ~ .checkmark {
+  background-color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.toggle-container input:checked ~ .checkmark:after {
+  left: 21px;
+  background-color: white;
+}
+
+/* Primary Button */
+.btn {
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, var(--accent-primary), #5a4bcf);
+  color: white;
+  box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
+}
+
+.primary-btn:active {
+  transform: translateY(0);
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.online {
+  background-color: #00b894;
+  box-shadow: 0 0 8px #00b894;
+}
+
+/* Main Content Area */
+.content {
+  flex-grow: 1;
+  padding: 3rem;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.content-header {
+  margin-bottom: 3rem;
+}
+
+.content-header h1 {
+  font-size: 2.2rem;
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+}
+
+.content-header p {
+  color: var(--text-dim);
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.panels {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.panel {
+  background: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.panel h3 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.chart-container {
+  height: 400px;
+  width: 100%;
+}
+
+/* Metrics Grid */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.metric-placeholder {
+  color: var(--text-dim);
+  font-style: italic;
+  padding: 2rem;
+  text-align: center;
+  background: rgba(0,0,0,0.2);
+  border-radius: 8px;
+  grid-column: 1 / -1;
+}
+
+.metric-card {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.metric-date {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+.metric-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-secondary);
+}
